@@ -1,14 +1,26 @@
 from flask import Blueprint, render_template, request
-from app.services.job_recommender import recommend_jobs
 
 job_bp = Blueprint("job", __name__)
 
-@job_bp.route("/jobs", methods=["GET", "POST"])
+JOBS_DB = [
+    {"title": "Python Developer", "company": "Google"},
+    {"title": "Frontend Developer", "company": "Microsoft"},
+    {"title": "Data Analyst", "company": "Amazon"},
+    {"title": "AI Engineer", "company": "OpenAI"},
+    {"title": "Backend Developer", "company": "Meta"},
+    {"title": "Full Stack Developer", "company": "Netflix"},
+    {"title": "DevOps Engineer", "company": "Infosys"},
+]
+
+@job_bp.route("/jobs", methods=["GET","POST"])
 def jobs():
-    jobs = []
+    results = []
 
     if request.method == "POST":
-        skills = request.form.get("skills")
-        jobs = recommend_jobs(skills.split(","))
+        query = request.form.get("query","").lower()
 
-    return render_template("jobs.html", jobs=jobs)
+        for job in JOBS_DB:
+            if query in job["title"].lower():
+                results.append(job)
+
+    return render_template("jobs.html", results=results)

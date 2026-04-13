@@ -1,34 +1,33 @@
 {% extends "base.html" %}
 {% block content %}
 
-<h2 class="mb-4">Dashboard 🚀</h2>
+<div class="container mt-5">
+    <h2>Dashboard 🚀</h2>
 
-<div class="row g-4">
+    <div class="row">
 
-<div class="col-md-4">
-<div class="card p-4 text-center">
-<h4>📄 Resume Analyzer</h4>
-<p>Analyze your resume using AI</p>
-<a href="/resume" class="btn btn-custom">Open</a>
-</div>
-</div>
+        <div class="col-md-4">
+            <div class="card p-3 glass">
+                <h4>Resumes</h4>
+                <h2>{{ data.resumes }}</h2>
+            </div>
+        </div>
 
-<div class="col-md-4">
-<div class="card p-4 text-center">
-<h4>💼 Job Finder</h4>
-<p>Find best jobs based on skills</p>
-<a href="/jobs" class="btn btn-custom">Open</a>
-</div>
-</div>
+        <div class="col-md-4">
+            <div class="card p-3 glass">
+                <h4>Jobs Applied</h4>
+                <h2>{{ data.jobs_applied }}</h2>
+            </div>
+        </div>
 
-<div class="col-md-4">
-<div class="card p-4 text-center">
-<h4>🎤 Interview Prep</h4>
-<p>Practice interview questions</p>
-<a href="/interview" class="btn btn-custom">Start</a>
-</div>
-</div>
+        <div class="col-md-4">
+            <div class="card p-3 glass">
+                <h4>Interviews</h4>
+                <h2>{{ data.interviews }}</h2>
+            </div>
+        </div>
 
+    </div>
 </div>
 
 {% endblock %}

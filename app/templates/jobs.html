@@ -2,32 +2,23 @@
 {% block content %}
 
 <div class="container mt-5">
+    <div class="card p-4 glass">
+        <h3>💼 Job Finder</h3>
 
-<div class="card p-4 shadow-lg glass">
+        <form method="POST">
+            <input name="query" class="form-control" placeholder="Search jobs...">
+            <button class="btn btn-primary mt-2">Search</button>
+        </form>
 
-<h2 class="text-gradient mb-4">💼 Job Finder</h2>
+        <hr>
 
-<form method="POST">
-
-<input name="skills" class="form-control mb-3 input-dark" 
-placeholder="e.g. Python, React, SQL">
-
-<button class="btn btn-custom">Find Jobs 🔍</button>
-
-</form>
-
-{% if jobs %}
-<hr>
-<h5>Results:</h5>
-<ul class="list-group mt-3">
-{% for job in jobs %}
-<li class="list-group-item">{{ job }}</li>
-{% endfor %}
-</ul>
-{% endif %}
-
-</div>
-
+        {% for job in results %}
+            <div class="card p-2 mt-2">
+                <h5>{{ job.title }}</h5>
+                <p>{{ job.company }}</p>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 
 {% endblock %}
