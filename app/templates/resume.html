@@ -1,13 +1,22 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="card p-4">
+
+<h3>Resume Analyzer 📄</h3>
+
 <form method="POST">
-<textarea name="resume" class="form-control"></textarea>
-<button class="btn btn-primary mt-2">Analyze</button>
+<textarea name="resume" class="form-control mb-3" rows="6" placeholder="Paste your resume..."></textarea>
+
+<button class="btn btn-custom">Analyze</button>
 </form>
 
 {% if result %}
-<h4>Score: {{result.score}}</h4>
+<div class="mt-4">
+<h4>Score: {{result.score}}%</h4>
+</div>
 {% endif %}
+
+</div>
 
 {% endblock %}

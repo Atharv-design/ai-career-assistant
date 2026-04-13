@@ -1,16 +1,36 @@
 {% extends "base.html" %}
-{% block title %}Login{% endblock %}
-
 {% block content %}
-<div class="container d-flex justify-content-center align-items-center vh-100">
-  <div class="card p-4 shadow login-card">
-    <h3 class="text-center mb-3">Login</h3>
 
-    <form>
-      <input type="email" class="form-control mb-3" placeholder="Email" required>
-      <input type="password" class="form-control mb-3" placeholder="Password" required>
-      <button class="btn btn-primary w-100">Login</button>
-    </form>
-  </div>
+<div class="row justify-content-center">
+<div class="col-md-4">
+
+<div class="card p-4">
+<h3 class="text-center mb-3">Login 🔐</h3>
+
+<form method="POST" id="loginForm">
+
+<input type="email" name="email" id="email" class="form-control mb-3" placeholder="Enter Email" required>
+
+<button class="btn btn-custom w-100">Login</button>
+
+</form>
+
+<p class="text-danger mt-2" id="error"></p>
+
 </div>
+
+</div>
+</div>
+
+<script>
+$("#loginForm").submit(function(e){
+    let email = $("#email").val();
+
+    if(!email.includes("@")){
+        $("#error").text("Invalid email format ❌");
+        e.preventDefault();
+    }
+});
+</script>
+
 {% endblock %}

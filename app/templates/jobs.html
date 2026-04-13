@@ -1,15 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
 
+<div class="card p-4">
+
+<h3>Job Finder 💼</h3>
+
 <form method="POST">
-<input name="skills" class="form-control">
-<button class="btn btn-success">Find Jobs</button>
+<input name="skills" class="form-control mb-3" placeholder="python, html">
+<button class="btn btn-custom">Find Jobs</button>
 </form>
 
-<ul>
-{% for j in jobs %}
-<li>{{j}}</li>
+<ul class="mt-3">
+{% for job in jobs %}
+<li>{{job}}</li>
 {% endfor %}
 </ul>
+
+</div>
 
 {% endblock %}
