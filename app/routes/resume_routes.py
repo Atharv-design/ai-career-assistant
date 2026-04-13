@@ -1,14 +1,26 @@
 from flask import Blueprint, render_template, request
-from app.services.resume_parser import analyze_resume
+import os
 
 resume_bp = Blueprint("resume", __name__)
 
-@resume_bp.route("/resume", methods=["GET", "POST"])
+UPLOAD_FOLDER = "app/static/uploads"
+
+@resume_bp.route("/resume", methods=["GET","POST"])
 def resume():
-    result = None
 
     if request.method == "POST":
-        text = request.form.get("resume")
-        result = analyze_resume(text)
 
-    return render_template("resume.html", result=result)
+        file = request.files.get("file")
+
+        if not file or file.filename == "":
+            return "No file selected ❌"
+
+        # ensure folder exists
+        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+
+        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(filepath)
+
+        return f"Uploaded ✅: {file.filename}"
+
+    return render_template("resume.html")

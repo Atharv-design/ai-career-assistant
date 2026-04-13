@@ -1,20 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="card p-4">
+<div class="container mt-5">
 
-<h3>Job Finder 💼</h3>
+<div class="card p-4 shadow-lg glass">
+
+<h2 class="text-gradient mb-4">💼 Job Finder</h2>
 
 <form method="POST">
-<input name="skills" class="form-control mb-3" placeholder="python, html">
-<button class="btn btn-custom">Find Jobs</button>
+
+<input name="skills" class="form-control mb-3 input-dark" 
+placeholder="e.g. Python, React, SQL">
+
+<button class="btn btn-custom">Find Jobs 🔍</button>
+
 </form>
 
-<ul class="mt-3">
+{% if jobs %}
+<hr>
+<h5>Results:</h5>
+<ul class="list-group mt-3">
 {% for job in jobs %}
-<li>{{job}}</li>
+<li class="list-group-item">{{ job }}</li>
 {% endfor %}
 </ul>
+{% endif %}
+
+</div>
 
 </div>
 
