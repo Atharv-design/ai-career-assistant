@@ -2,31 +2,38 @@
 {% block content %}
 
 <div class="container mt-5">
-    <div class="card p-4 glass">
-        <h3>💬 AI Career Chat</h3>
+    <div class="glass p-4">
 
-        <div id="chatBox" style="height:300px; overflow-y:auto;"></div>
+        <h3>💬 AI Chat</h3>
 
-        <input id="msg" class="form-control mt-3" placeholder="Ask something...">
-        <button onclick="sendMsg()" class="btn btn-primary mt-2">Send</button>
+        <div id="chatBox" style="height:350px; overflow:auto;"></div>
+
+        <div class="d-flex mt-3">
+            <input id="msg" class="form-control me-2" placeholder="Ask anything...">
+            <button onclick="sendMsg()" class="btn btn-main">Send</button>
+        </div>
+
     </div>
 </div>
 
 <script>
 function sendMsg(){
-    let msg = document.getElementById("msg").value;
 
-    fetch("/chat_api",{
+    let msg = $("#msg").val();
+
+    $("#chatBox").append(`<div class="text-end">🧑 ${msg}</div>`);
+
+    $.ajax({
+        url:"/chat_api",
         method:"POST",
-        headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({message: msg})
-    })
-    .then(res=>res.json())
-    .then(data=>{
-        let box = document.getElementById("chatBox");
-        box.innerHTML += "<p><b>You:</b> "+msg+"</p>";
-        box.innerHTML += "<p><b>AI:</b> "+data.reply+"</p>";
+        contentType:"application/json",
+        data: JSON.stringify({message:msg}),
+        success:function(res){
+            $("#chatBox").append(`<div>🤖 ${res.reply}</div>`);
+        }
     });
+
+    $("#msg").val("");
 }
 </script>
 

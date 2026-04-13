@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify
+from flask import Blueprint, render_template, request, jsonify, session
 
 chat_bp = Blueprint("chat", __name__)
 
@@ -8,16 +8,27 @@ def chat():
 
 @chat_bp.route("/chat_api", methods=["POST"])
 def chat_api():
-    user_msg = request.json.get("message", "").lower()
 
-    # basic AI logic (upgrade later with OpenAI)
-    if "job" in user_msg:
-        reply = "You should focus on skills like Python, SQL, and projects."
-    elif "resume" in user_msg:
-        reply = "Keep your resume clean, add projects, and quantify achievements."
-    elif "interview" in user_msg:
-        reply = "Practice DSA + explain your projects clearly."
+    user_msg = request.json.get("message")
+
+    # memory store
+    if "history" not in session:
+        session["history"] = []
+
+    session["history"].append(user_msg)
+
+    # smart response logic
+    msg = user_msg.lower()
+
+    if "career" in msg:
+        reply = "Focus on skills + projects + internships. Build real-world experience."
+    elif "python" in msg:
+        reply = "Python is great for AI, backend, automation. Learn Flask, Django, and projects."
+    elif "resume" in msg:
+        reply = "Keep resume 1 page, highlight achievements, and use strong action words."
+    elif "job" in msg:
+        reply = "Apply daily, improve skills, and build strong GitHub projects."
     else:
-        reply = "I am your AI career assistant 🚀 Ask me anything!"
+        reply = "Based on your previous questions, I suggest focusing on consistent learning and projects 🚀"
 
     return jsonify({"reply": reply})

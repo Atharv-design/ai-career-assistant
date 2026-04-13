@@ -8,19 +8,40 @@ UPLOAD_FOLDER = "app/static/uploads"
 @resume_bp.route("/resume", methods=["GET","POST"])
 def resume():
 
+    result = None
+
     if request.method == "POST":
+        file = request.files.get("resume")
 
-        file = request.files.get("file")
+        if file:
+            path = os.path.join(UPLOAD_FOLDER, file.filename)
+            file.save(path)
 
-        if not file or file.filename == "":
-            return "No file selected ❌"
+            text = file.filename.lower()
 
-        # ensure folder exists
-        os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+            # simple smart analysis
+            score = 50
+            improvements = []
 
-        filepath = os.path.join(UPLOAD_FOLDER, file.filename)
-        file.save(filepath)
+            if "project" in text:
+                score += 15
+            else:
+                improvements.append("Add Projects Section")
 
-        return f"Uploaded ✅: {file.filename}"
+            if "skill" in text:
+                score += 15
+            else:
+                improvements.append("Add Skills Section")
 
-    return render_template("resume.html")
+            if "experience" in text:
+                score += 20
+            else:
+                improvements.append("Add Experience Section")
+
+            result = {
+                "score": score,
+                "improvements": improvements,
+                "message": "Resume analyzed successfully 🚀"
+            }
+
+    return render_template("resume.html", result=result)
