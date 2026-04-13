@@ -1,17 +1,17 @@
-from flask import Blueprint, render_template, request, jsonify
-from app.services.chatbot_engine import generate_response
+from flask import Blueprint, render_template, request, session
 
 chat_bp = Blueprint("chat", __name__)
 
-@chat_bp.route("/chat")
+@chat_bp.route("/chat", methods=["GET", "POST"])
 def chat():
-    return render_template("chat.html")
+    if "history" not in session:
+        session["history"] = []
 
-@chat_bp.route("/chat_api", methods=["POST"])
-def chat_api():
+    if request.method == "POST":
+        msg = request.form["msg"]
 
-    msg = request.json.get("message")
+        response = f"You asked: {msg}. Focus on skills + projects."
 
-    reply = generate_response("user1", msg)
+        session["history"].append({"user": msg, "bot": response})
 
-    return jsonify({"reply": reply})
+    return render_template("chat.html", history=session["history"])

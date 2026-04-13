@@ -6,9 +6,4 @@ dashboard_bp = Blueprint("dashboard", __name__)
 @dashboard_bp.route("/dashboard")
 @login_required
 def dashboard():
-    data = {
-        "resumes": 2,
-        "jobs": 5,
-        "interviews": 1
-    }
-    return render_template("dashboard.html", data=data)
+    return render_template("dashboard.html")

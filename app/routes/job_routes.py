@@ -1,22 +1,20 @@
 from flask import Blueprint, render_template, request
 
-job_bp = Blueprint("jobs", __name__)
+job_bp = Blueprint("job", __name__)
 
 jobs_data = [
-    "Python Developer",
-    "Frontend Developer",
-    "Backend Engineer",
-    "AI Engineer",
-    "Data Scientist"
+    {"title": "Python Developer"},
+    {"title": "Frontend Developer"},
+    {"title": "AI Engineer"},
+    {"title": "Data Scientist"}
 ]
 
-@job_bp.route("/jobs", methods=["GET","POST"])
+@job_bp.route("/jobs", methods=["GET", "POST"])
 def jobs():
-    query = request.form.get("query")
+    results = []
 
-    if query:
-        filtered = [j for j in jobs_data if query.lower() in j.lower()]
-    else:
-        filtered = jobs_data
+    if request.method == "POST":
+        query = request.form["query"].lower()
+        results = [job for job in jobs_data if query in job["title"].lower()]
 
-    return render_template("jobs.html", jobs=filtered)
+    return render_template("jobs.html", jobs=results)
