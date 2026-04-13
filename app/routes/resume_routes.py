@@ -8,10 +8,7 @@ def resume():
     result = None
 
     if request.method == "POST":
-        file = request.files.get("resume")
-
-        if file:
-            text = file.read().decode("utf-8", errors="ignore")
-            result = analyze_resume(text)
+        text = request.form.get("resume")
+        result = analyze_resume(text)
 
     return render_template("resume.html", result=result)

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<form method="POST">
+<input name="skills" class="form-control">
+<button class="btn btn-success">Find Jobs</button>
+</form>
+
+<ul>
+{% for j in jobs %}
+<li>{{j}}</li>
+{% endfor %}
+</ul>
+
+{% endblock %}

@@ -1,4 +1,2 @@
-def recommend_jobs():
-    return {
-        "jobs": ["Backend Developer", "AI Engineer", "Data Analyst"]
-    }
+def recommend_jobs(skills):
+    return ["Developer", "Engineer"]
