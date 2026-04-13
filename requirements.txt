@@ -1,8 +1,2 @@
-Flask
-Flask_SQLAlchemy
-Flask_Login
-PyMySQL
-spacy
-pdfplumber
-openai
+flask
 gunicorn
