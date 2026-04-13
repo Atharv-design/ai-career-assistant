@@ -1,0 +1,22 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.hero {
+  height: 90vh;
+  background: linear-gradient(135deg, #141e30, #243b55);
+}
+
+.card {
+  border-radius: 15px;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: translateY(-8px);
+}
+
+.login-card {
+  width: 350px;
+  border-radius: 15px;
+}

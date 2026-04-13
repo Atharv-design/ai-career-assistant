@@ -1,22 +1,60 @@
-<h2>Dashboard</h2>
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
 
-<form id="resumeForm">
-<textarea name="text"></textarea>
-<button type="submit">Analyze Resume</button>
-</form>
+{% block content %}
 
-<script>
-document.getElementById("resumeForm").onsubmit = async (e) => {
-    e.preventDefault();
-    let text = e.target.text.value;
+<div class="container mt-5">
 
-    let res = await fetch("/resume/analyze", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({text})
-    });
+    <h2 class="fw-bold mb-4">📊 Dashboard</h2>
 
-    let data = await res.json();
-    alert(JSON.stringify(data));
-};
-</script>
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card p-4 shadow text-center">
+                <h6>Resumes</h6>
+                <h2 class="text-primary">5</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-4 shadow text-center">
+                <h6>Jobs</h6>
+                <h2 class="text-success">12</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-4 shadow text-center">
+                <h6>Interviews</h6>
+                <h2 class="text-danger">3</h2>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card p-4 shadow text-center">
+                <h6>Skills</h6>
+                <h2 class="text-warning">8</h2>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row mt-5 g-4">
+
+        <div class="col-md-4">
+            <a href="#" class="btn btn-primary w-100 p-3">📄 Resume Analyzer</a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="#" class="btn btn-success w-100 p-3">💼 Job Finder</a>
+        </div>
+
+        <div class="col-md-4">
+            <a href="#" class="btn btn-danger w-100 p-3">🎤 AI Interview</a>
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
