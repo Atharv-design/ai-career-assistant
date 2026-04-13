@@ -5,15 +5,15 @@
 <h3>Job Finder</h3>
 
 <form method="POST">
-<input name="query" class="form-control mb-2" placeholder="Search jobs">
+<input name="query" class="form-control mb-3" placeholder="Search jobs">
 <button class="btn btn-main">Search</button>
 </form>
 
-<ul class="mt-3">
+<div class="mt-3">
 {% for job in jobs %}
-<li>{{job}}</li>
+<div class="card p-2 mb-2">{{job}}</div>
 {% endfor %}
-</ul>
+</div>
 
 </div>
 

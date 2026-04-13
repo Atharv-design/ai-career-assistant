@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, jsonify
+from app.services.chatbot_engine import generate_response
 
 chat_bp = Blueprint("chat", __name__)
 
@@ -8,13 +9,9 @@ def chat():
 
 @chat_bp.route("/chat_api", methods=["POST"])
 def chat_api():
-    msg = request.json.get("message").lower()
 
-    if "career" in msg:
-        reply = "Focus on skills, projects and internships."
-    elif "python" in msg:
-        reply = "Learn Flask, Django and build projects."
-    else:
-        reply = "Keep learning consistently 🚀"
+    msg = request.json.get("message")
+
+    reply = generate_response("user1", msg)
 
     return jsonify({"reply": reply})
