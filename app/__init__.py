@@ -17,9 +17,16 @@ def create_app():
     login_manager.init_app(app)
     login_manager.login_view = "auth.login"
 
-    # ======================
+    # ✅ FIXED USER LOADER (correct place)
+    from app.models.user_model import User
+
+    @login_manager.user_loader
+    def load_user(user_id):
+        return User.query.get(int(user_id))
+
+    # ========================
     # IMPORT & REGISTER ROUTES
-    # ======================
+    # ========================
     from app.routes.auth_routes import auth_bp
     from app.routes.resume_routes import resume_bp
     from app.routes.job_routes import job_bp
