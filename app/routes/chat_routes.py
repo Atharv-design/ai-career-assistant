@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, jsonify, session
+from flask import Blueprint, render_template, request, jsonify
 
 chat_bp = Blueprint("chat", __name__)
 
@@ -8,27 +8,13 @@ def chat():
 
 @chat_bp.route("/chat_api", methods=["POST"])
 def chat_api():
-
-    user_msg = request.json.get("message")
-
-    # memory store
-    if "history" not in session:
-        session["history"] = []
-
-    session["history"].append(user_msg)
-
-    # smart response logic
-    msg = user_msg.lower()
+    msg = request.json.get("message").lower()
 
     if "career" in msg:
-        reply = "Focus on skills + projects + internships. Build real-world experience."
+        reply = "Focus on skills, projects and internships."
     elif "python" in msg:
-        reply = "Python is great for AI, backend, automation. Learn Flask, Django, and projects."
-    elif "resume" in msg:
-        reply = "Keep resume 1 page, highlight achievements, and use strong action words."
-    elif "job" in msg:
-        reply = "Apply daily, improve skills, and build strong GitHub projects."
+        reply = "Learn Flask, Django and build projects."
     else:
-        reply = "Based on your previous questions, I suggest focusing on consistent learning and projects 🚀"
+        reply = "Keep learning consistently 🚀"
 
     return jsonify({"reply": reply})

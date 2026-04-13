@@ -14,6 +14,7 @@ def resume():
         file = request.files.get("resume")
 
         if file:
+            os.makedirs(UPLOAD_FOLDER, exist_ok=True)
             path = os.path.join(UPLOAD_FOLDER, file.filename)
             file.save(path)
 

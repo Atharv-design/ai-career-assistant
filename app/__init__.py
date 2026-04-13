@@ -18,22 +18,21 @@ def create_app():
 
     @login_manager.user_loader
     def load_user(user_id):
-        return User.query.get(int(user_id))
+        try:
+            return User.query.get(int(user_id))
+        except:
+            return None
 
-    # routes
+    # REGISTER BLUEPRINTS
     from app.routes.auth_routes import auth_bp
     from app.routes.resume_routes import resume_bp
     from app.routes.job_routes import job_bp
-    from app.routes.interview_routes import interview_bp
-    from app.routes.roadmap_routes import roadmap_bp
     from app.routes.chat_routes import chat_bp
     from app.routes.dashboard_routes import dashboard_bp
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(resume_bp)
     app.register_blueprint(job_bp)
-    app.register_blueprint(interview_bp)
-    app.register_blueprint(roadmap_bp)
     app.register_blueprint(chat_bp)
     app.register_blueprint(dashboard_bp)
 

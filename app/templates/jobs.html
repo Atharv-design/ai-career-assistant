@@ -1,24 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
 
-<div class="container mt-5">
-    <div class="card p-4 glass">
-        <h3>💼 Job Finder</h3>
+<div class="glass">
+<h3>Job Finder</h3>
 
-        <form method="POST">
-            <input name="query" class="form-control" placeholder="Search jobs...">
-            <button class="btn btn-primary mt-2">Search</button>
-        </form>
+<form method="POST">
+<input name="query" class="form-control mb-2" placeholder="Search jobs">
+<button class="btn btn-main">Search</button>
+</form>
 
-        <hr>
+<ul class="mt-3">
+{% for job in jobs %}
+<li>{{job}}</li>
+{% endfor %}
+</ul>
 
-        {% for job in results %}
-            <div class="card p-2 mt-2">
-                <h5>{{ job.title }}</h5>
-                <p>{{ job.company }}</p>
-            </div>
-        {% endfor %}
-    </div>
 </div>
 
 {% endblock %}
